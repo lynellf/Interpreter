@@ -1,17 +1,17 @@
 # Interpreter
- Interprets a description of your application and handles the rest.
 
-Usage
-===
+Interprets a description of your application and handles the rest.
+
+# Usage
 
 ```typescript
-function printMessage(variables, state){
-  state.message = variables[0]
-  return state
+function printMessage(variables, state) {
+  state.message = variables[0];
+  return state;
 }
 
-function nonEmptyMessage(state){
-  return state.message.length > 0
+function nonEmptyMessage(state) {
+  return state.message.length > 0;
 }
 
 const description = {
