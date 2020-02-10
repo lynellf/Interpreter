@@ -14,7 +14,7 @@ type TVars = TDesc['variables']
 type TState = TDesc['initialState']
 
 function printMessage(variables: TVars, state: TState) {
-  return { ...state, message: variables[0] };
+  return { ...state, message: variables.join("\n") };
 }
 
 function nonEmptyMessage(state: TState) {
@@ -22,7 +22,7 @@ function nonEmptyMessage(state: TState) {
 }
 
 const description = {
-  variables: ["hello world"],
+  variables: ["Hello World!", "This is a test"],
   functions: [print],
   initialState: {
     message: ""
@@ -30,11 +30,11 @@ const description = {
   constraints: [nonEmptyMessage]
 };
 
-const app = new Interpreter(description);
-const [output, [hasMessage]] = app.interpret();
+const printer = new Interpreter(description);
+const [{ message } , [hasMessage]] = app.interpret();
 
 if (hasMessage) {
-  console.log({ message: output.message });
+  console.log(message);
 } else {
   console.error("Message is empty!");
 }
