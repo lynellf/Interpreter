@@ -1,8 +1,10 @@
+type TFunc<V, S> = (variables: V[], state: S) => S
+type TConstraint<S> = (state: S) => boolean
 type TDescription<V, S> = {
   variables: V[];
-  functions: Function[];
+  functions: TFunc<V, S>[];
   initialState: S;
-  constraints: Function[];
+  constraints: TConstraint<S>[];
 };
 
 export default class Interpreter<V, S> {
@@ -20,8 +22,8 @@ export default class Interpreter<V, S> {
   }
 
   private callFunc = (func: Function) => {
-    const state = this.state;
-    const variables = this.variables;
+    const state = Object.freeze({ ...this.state });
+    const variables = Object.freeze([...this.variables]);
     this.state = func(variables, state);
   };
 
