@@ -31,7 +31,7 @@ const description = {
 };
 
 const printer = new Interpreter(description);
-const [{ message } , [hasMessage]] = app.interpret();
+const [{ message } , [hasMessage]] = printer.interpret();
 
 if (hasMessage) {
   console.log(message);
