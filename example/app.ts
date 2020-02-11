@@ -2,11 +2,15 @@ import Interpreter from "../mod.ts";
 import print from "./demo/print.ts";
 import nonEmptyMessage from "./demo/checkMessage.ts";
 export type TDesc = typeof description;
-export type TVars = TDesc['variables']
-export type TState = TDesc['initialState']
+export type TVars = TDesc["variables"];
+export type TState = TDesc["initialState"];
 
 const description = {
-  variables: ["hello world"],
+  variables: [
+    "Hello World!",
+    "This is a test.",
+    "Each sentence is separated by a new line."
+  ],
   functions: [print],
   initialState: {
     message: ""
@@ -14,11 +18,11 @@ const description = {
   constraints: [nonEmptyMessage]
 };
 
-const app = new Interpreter(description);
-const [output, [hasMessage]] = app.interpret();
+const printer = new Interpreter(description);
+const [{ message }, [hasMessage]] = printer.interpret();
 
 if (hasMessage) {
-  console.log({ message: output.message });
+  console.log(message);
 } else {
   console.error("Message is empty!");
 }
