@@ -2,6 +2,8 @@
 
 Interprets a description of your application and handles the rest.
 
+### Made with Deno in mind. 😎
+
 # Usage
 
 ```typescript
