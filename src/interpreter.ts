@@ -1,19 +1,20 @@
-type TFunc<V, S> = (variables: V[], state: S) => S
-type TConstraint<S> = (state: S) => boolean
-type TDescription<V, S> = {
+type TState = { [key: string]: unknown }
+type TFunc<V> = (variables: readonly V[], state: TState) => TState
+type TConstraint = (state: TState) => boolean
+type TDescription<V> = {
   variables: V[];
-  functions: TFunc<V, S>[];
-  initialState: S;
-  constraints: TConstraint<S>[];
+  functions: TFunc<V>[];
+  initialState: TState;
+  constraints: TConstraint[];
 };
 
-export default class Interpreter<V, S> {
+export default class Interpreter<V> {
   variables: V[] = [];
-  functions: Function[] = [];
-  state: S;
-  constraints: Function[] = [];
+  functions: TFunc<V>[] = [];
+  state: TState;
+  constraints: TConstraint[] = [];
 
-  constructor(description: TDescription<V, S>) {
+  constructor(description: TDescription<V>) {
     const { variables, functions, initialState, constraints } = description;
     this.variables = variables;
     this.functions = functions;
@@ -21,13 +22,13 @@ export default class Interpreter<V, S> {
     this.constraints = constraints;
   }
 
-  private callFunc = (func: Function) => {
+  private callFunc = (func: TFunc<V>) => {
     const state = Object.freeze({ ...this.state });
     const variables = Object.freeze([...this.variables]);
     this.state = func(variables, state);
   };
 
-  private assert = (state: S, objective: Function) => {
+  private assert = (state: TState, objective: TConstraint) => {
     return objective(state);
   };
 
