@@ -45,7 +45,7 @@ if (hasMessage) {
 **Actions** is an array of functions which are required to have the same signature.
 
 ```
-type TFunc<V, S> = (variables: V[], state: S) => S
+type TAction<V, S> = (variables: V[], state: S) => S
 ```
 
 **Functions** are executed in the order they are inserted.
