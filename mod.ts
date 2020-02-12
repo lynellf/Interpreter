@@ -1,2 +1,2 @@
-import Interpreter from './src/interpreter.ts'
-export default Interpreter
+import Interpreter from "./src/interpreter.ts";
+export default Interpreter;

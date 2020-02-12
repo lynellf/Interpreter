@@ -27,7 +27,7 @@ const description = {
   },
   constraints: [nonEmptyMessage]
 };
-
+a
 const printer = new Interpreter(description);
 const [{ message }, [hasMessage]] = printer.interpret();
 
@@ -42,7 +42,7 @@ if (hasMessage) {
 
 **Variables** is an array of anything. Primitives, non primitives, functions, etc. **Variables** are immutable.
 
-**Functions** is an array of functions which are required to have the same signature. 
+**Actions** is an array of functions which are required to have the same signature.
 
 ```
 type TFunc<V, S> = (variables: V[], state: S) => S

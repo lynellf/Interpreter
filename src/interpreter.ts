@@ -1,16 +1,16 @@
-type TState = { [key: string]: unknown }
-type TFunc<V> = (variables: readonly V[], state: TState) => TState
-type TConstraint = (state: TState) => boolean
+type TState = { [key: string]: unknown };
+type TAction<V> = (variables: readonly V[], state: TState) => TState;
+type TConstraint = (state: TState) => boolean;
 type TDescription<V> = {
   variables: V[];
-  functions: TFunc<V>[];
+  functions: TAction<V>[];
   initialState: TState;
   constraints: TConstraint[];
 };
 
 export default class Interpreter<V> {
   variables: V[] = [];
-  functions: TFunc<V>[] = [];
+  functions: TAction<V>[] = [];
   state: TState;
   constraints: TConstraint[] = [];
 
@@ -22,7 +22,7 @@ export default class Interpreter<V> {
     this.constraints = constraints;
   }
 
-  private callFunc = (func: TFunc<V>) => {
+  private callFunc = (func: TAction<V>) => {
     const state = Object.freeze({ ...this.state });
     const variables = Object.freeze([...this.variables]);
     this.state = func(variables, state);

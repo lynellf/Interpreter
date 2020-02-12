@@ -1,4 +1,4 @@
-import { TState } from '../app.ts'
+import { TState } from "../app.ts";
 export default function(state: TState) {
-  return state
+  return state;
 }
