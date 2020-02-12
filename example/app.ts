@@ -11,7 +11,7 @@ const description = {
     "This is a test.",
     "Each sentence is separated by a new line."
   ],
-  functions: [print],
+  actions: [print],
   initialState: {
     message: ""
   },

@@ -21,7 +21,7 @@ const description = {
     "This is a test.",
     "Each sentence is separated by a new line."
   ],
-  functions: [print],
+  actions: [print],
   initialState: {
     message: ""
   },
@@ -48,7 +48,7 @@ if (hasMessage) {
 type TFunc<V, S> = (variables: V[], state: S) => S
 ```
 
-**Functions** are executed in the order they are inserted.
+**Actions** are executed in the order they are inserted.
 
 **Constraints** is an array of functions which are also required to have the same signature
 
@@ -58,4 +58,4 @@ type TConstraint<S> = (state: S) => boolean
 
 **Constraints** can help ensure the state/output of the interpreter is valid by your definitions.
 
-**State** is always an object, with properties the user can define. **State** is immutable. Each **Function** must return a brand new state.
+**State** is always an object, with properties the user can define. **State** is immutable. Each **Action** must return a brand new state.
