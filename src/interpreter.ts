@@ -1,23 +1,23 @@
-type TState = { [key: string]: unknown }
-type TAction<V> = (variables: readonly V[], state: TState) => TState
-type TConstraint = (state: TState) => boolean
+type TState = { [key: string]: unknown };
+type TAction<V> = (variables: readonly V[], state: TState) => TState;
+type TConstraint = (state: TState) => boolean;
 type TDescription<V> = {
   variables: V[];
-  actions: TAction<V>[];
+  functions: TAction<V>[];
   initialState: TState;
   constraints: TConstraint[];
 };
 
 export default class Interpreter<V> {
   variables: V[] = [];
-  actions: TAction<V>[] = [];
+  functions: TAction<V>[] = [];
   state: TState;
   constraints: TConstraint[] = [];
 
   constructor(description: TDescription<V>) {
-    const { variables, actions, initialState, constraints } = description;
+    const { variables, functions, initialState, constraints } = description;
     this.variables = variables;
-    this.actions = actions;
+    this.functions = functions;
     this.state = initialState;
     this.constraints = constraints;
   }
@@ -34,9 +34,9 @@ export default class Interpreter<V> {
 
   interpret = () => {
     const { callFunc, assert } = this;
-    const actions = this.actions;
+    const functions = this.functions;
     const constraints = this.constraints;
-    actions.forEach(action => callFunc(action));
+    functions.forEach(func => callFunc(func));
     const state = this.state;
     const assertions = constraints.map(obj => assert(state, obj));
 
